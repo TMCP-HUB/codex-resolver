@@ -98,6 +98,17 @@ Project Resolver is usable through the **existing [skills-only plugin package](p
 
 > Installing the plugin does not grant GitHub write permissions, provide a Codex runtime, unlock a model, or automatically start background agents. Availability depends on the actual host and connected tools.
 
+### Install a private ChatGPT plugin from this repository
+
+If your ChatGPT account has access to **Plugin Creator**, you can install your own private Project Resolver plugin without waiting for a public Plugin Directory listing:
+
+1. Download the current `main` ZIP from this public repository (Code → Download ZIP), or clone the repository.
+2. Open `plugins/project-resolver/`. Package **the contents of this directory** as a ZIP, keeping `plugin.json`, `.codex-plugin/plugin.json`, and both `skills/*/SKILL.md` paths at the ZIP root. Do not package the entire Resolver repository as a plugin.
+3. In ChatGPT Plugin Creator, create one private plugin from that ZIP. Connect GitHub and any other tools separately, as needed for the tasks you actually delegate.
+4. On later changes, **update that same plugin** through Plugin Creator; do not create another plugin. Your Plugin Creator interface and account permissions determine whether this operation is available.
+
+The plugin is a small, portable entry point. For GitHub-backed work it reads relevant, current Resolver guidance from [`TMCP-HUB/codex-resolver`](https://github.com/TMCP-HUB/codex-resolver), rather than copying all engines into the plugin. Installing this package does not grant access to private repositories, execution agents, or paid tools.
+
 ### Option B — Use any compatible AI agent directly
 
 No ChatGPT subscription or plugin is inherently required to **read and apply** Project Resolver's source-available methodology.
