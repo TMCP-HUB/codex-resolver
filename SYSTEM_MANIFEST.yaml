@@ -1,0 +1,133 @@
+system_id: project-resolver
+system_class: agent_project_operating_system
+version: "0.1.0"
+status: stage1_agent_native_active
+bootstrap_entry: BOOTSTRAP.md
+
+root_control_files:
+  - AGENTS.md
+  - SYSTEM_MANIFEST.yaml
+  - ROUTER.md
+
+bootstrap_runtime_context:
+  contract: contracts/SBC_RUNTIME_CONTEXT_CONTRACT.md
+  schema: schemas/sbc-runtime-context.schema.json
+  validator: tools/bootstrap_runtime.py
+
+kernel_constitutions:
+  research_machine_only: kernel/RESEARCH_MACHINE_ONLY_CONSTITUTION.md
+
+product_strategy:
+  name: Strategy 2030
+  contract: kernel/STRATEGY_2030.md
+
+kernel_contracts:
+  core: contracts/CORE_CONTRACTS.md
+  assignment_compilation: contracts/ASSIGNMENT_COMPILATION_CONTRACT.md
+  destination_executability: contracts/EXECUTABILITY_CONTRACT.md
+  resource_governance: contracts/RESOURCE_GOVERNANCE_CONTRACT.md
+  owner_resource_authority: contracts/OWNER_RESOURCE_AUTHORITY_CONTRACT.md
+
+shared_namespaces:
+  kernel: kernel/
+  contracts: contracts/
+  protocols: protocols/
+  roles: roles/
+  schemas: schemas/
+  library: library/
+
+engine_registry:
+  - engine_id: canon
+    manifest_path: engines/canon/MANIFEST.yaml
+    status: available
+    capabilities:
+      - establish_canon_foundation
+      - register_canon_fact
+      - register_canon_assumption
+      - register_unknown
+      - register_ambiguity
+      - register_contradiction
+      - reconcile_research_into_canon
+      - classify_canon_change
+      - validate_canon
+      - freeze_canon
+      - final_canon_reconciliation
+      - reopen_canon
+    entry_conditions:
+      - task_semantically_belongs_to_canon_engine
+      - required_authority_is_present
+      - relevant_state_slice_or_current_canon_state_is_identified
+      - exact_assignment_exists
+      - selected_workflow_upstream_requirements_are_present
+      - destination_executability_preflight_passes
+
+  - engine_id: foundation
+    manifest_path: engines/foundation/MANIFEST.yaml
+    status: available
+    capabilities:
+      - form_project_foundation
+    entry_conditions:
+      - task_semantically_belongs_to_foundation_engine
+      - exact_owner_material_or_provenance_is_present
+      - exact_assignment_exists
+      - selected_workflow_upstream_requirements_are_present
+      - destination_executability_preflight_passes
+
+  - engine_id: production/software
+    manifest_path: engines/production/software/MANIFEST.yaml
+    status: available
+    capabilities:
+      - implement_software_change
+      - diagnose_software_failure
+      - plan_software_work
+      - review_software_change
+      - software_release_support
+      - technical_qa
+    entry_conditions:
+      - task_semantically_belongs_to_software_engine
+      - required_authority_is_present
+      - relevant_state_slice_is_identified
+      - destination_executability_preflight_passes
+
+  - engine_id: verification
+    manifest_path: engines/verification/MANIFEST.yaml
+    status: available
+    capabilities:
+      - verify_completion_claim
+      - verify_exact_candidate_claims
+    entry_conditions:
+      - exact_claim_or_acceptance_target_exists
+      - evidence_or_direct_state_is_available_or_requestable
+      - destination_executability_preflight_passes_for_mandatory_evidence
+
+  - engine_id: research
+    manifest_path: engines/research/MANIFEST.yaml
+    status: available
+    constitutional_authority: kernel/RESEARCH_MACHINE_ONLY_CONSTITUTION.md
+    default_mode: MACHINE_ONLY
+    capabilities:
+      - admit_research_question
+      - plan_research_work
+      - execute_research_work
+      - run_research_experiment
+      - verify_research_work
+      - prepare_research_release
+      - reconcile_research_chain
+    entry_conditions:
+      - required_authority_is_present
+      - relevant_state_slice_is_identified
+      - machine_only_admission_passes_when_research_execution_is_selected
+      - exact_durable_upstream_refs_are_present_when_reconcile_research_chain_is_selected
+      - destination_executability_preflight_passes_for_execution_assignment
+
+planned_engines:
+  - engine_id: production/other-domains
+    status: not_materialized
+
+runtime_discovery:
+  mode: progressive_disclosure
+  ordinary_root_reads:
+    - AGENTS.md
+    - SYSTEM_MANIFEST.yaml
+    - ROUTER.md
+  global_skill_discovery: forbidden_during_ordinary_execution

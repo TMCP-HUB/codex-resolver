@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/execution-route.schema.json",
+  "title": "EXECUTION_ROUTE",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "assignment_draft_id",
+    "segments",
+    "handoffs",
+    "final_result"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "EXECUTION_ROUTE"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_by_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assignment_id": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "input_state_ref": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    },
+    "status": {
+      "const": "ADMISSIBLE"
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignment_draft_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "segments": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "segment_id",
+          "route_role",
+          "destination_id",
+          "runtime_identity",
+          "capability_profile_ref",
+          "required_capabilities",
+          "execution_mode"
+        ],
+        "properties": {
+          "segment_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "route_role": {
+            "enum": [
+              "CANDIDATE_DELIVERY",
+              "EXECUTION_VERIFICATION",
+              "DURABLE_EVIDENCE_CONTROL"
+            ]
+          },
+          "destination_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "runtime_identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capability_profile_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "execution_mode": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "route_role": {
+                "const": "CANDIDATE_DELIVERY"
+              }
+            },
+            "required": [
+              "route_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "route_role": {
+                "const": "EXECUTION_VERIFICATION"
+              }
+            },
+            "required": [
+              "route_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "route_role": {
+                "const": "DURABLE_EVIDENCE_CONTROL"
+              }
+            },
+            "required": [
+              "route_role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "handoffs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "from_segment",
+          "to_segment",
+          "source_required_capabilities",
+          "target_required_capabilities",
+          "internal_required_capabilities",
+          "same_surface"
+        ],
+        "properties": {
+          "from_segment": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to_segment": {
+            "type": "string",
+            "minLength": 1
+          },
+          "same_surface": {
+            "type": "boolean"
+          },
+          "same_actor_continuation": {
+            "type": "boolean",
+            "description": "Director's factual assertion that the same actor continues in the same live session; not proof of identity or independent verification."
+          },
+          "source_required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "target_required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "internal_required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "same_surface": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "anyOf": [
+                {
+                  "required": ["same_actor_continuation"],
+                  "properties": {
+                    "same_actor_continuation": {"const": true}
+                  }
+                },
+                {
+                  "properties": {
+                    "internal_required_capabilities": {"minItems": 1}
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": ["same_actor_continuation"],
+              "properties": {
+                "same_actor_continuation": {"const": true}
+              }
+            },
+            "then": {
+              "properties": {
+                "same_surface": {"const": true}
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "same_surface": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "source_required_capabilities": {
+                  "minItems": 1
+                },
+                "target_required_capabilities": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "final_result": {
+      "type": "object",
+      "required": [
+        "segment_ref",
+        "destination_id"
+      ],
+      "properties": {
+        "segment_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

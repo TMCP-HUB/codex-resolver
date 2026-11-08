@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/assignment-admissibility.schema.json",
+  "title": "ASSIGNMENT_ADMISSIBILITY",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "assignment_draft_id",
+    "compiled_assignment_ref",
+    "destination_id",
+    "runtime_identity",
+    "capability_profile_ref",
+    "mandatory_actions",
+    "required_capabilities",
+    "available_capabilities",
+    "unsatisfied_required_capabilities",
+    "mandatory_evidence_paths",
+    "execution_mode",
+    "route_ref"
+    ,"transition_proof"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "ASSIGNMENT_ADMISSIBILITY"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_by_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assignment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input_state_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ADMISSIBLE",
+        "NOT_ADMISSIBLE"
+      ]
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignment_draft_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "destination_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runtime_identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capability_profile_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "available_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "unsatisfied_required_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "mandatory_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "action_id",
+          "required_capabilities"
+        ],
+        "properties": {
+          "action_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "mandatory_evidence_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "execution_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fallback_mode": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "route_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "compiled_assignment_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "transition_proof": {
+      "type": "object",
+      "required": ["proof_class", "proof_status", "assignment_ref", "admissibility_ref", "destination_id", "runtime_identity", "dependency_bindings"],
+      "properties": {
+        "proof_class": {"const": "ASSIGNMENT_ADMISSION"},
+        "proof_status": {"const": "PROVEN"},
+        "assignment_ref": {"type": "string", "minLength": 1},
+        "admissibility_ref": {"type": "string", "minLength": 1},
+        "destination_id": {"type": "string", "minLength": 1},
+        "runtime_identity": {"type": "string", "minLength": 1},
+        "dependency_bindings": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["dependency_ref", "proven_identity"], "properties": {"dependency_ref": {"type": "string", "minLength": 1}, "proven_identity": {"type": "string", "minLength": 1}}, "additionalProperties": false}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ADMISSIBLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unsatisfied_required_capabilities": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "NOT_ADMISSIBLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unsatisfied_required_capabilities": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}

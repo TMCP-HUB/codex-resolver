@@ -1,0 +1,18 @@
+RESEARCH_ENGINE_BOOTSTRAP:
+  DEFAULT_RESEARCH_MODE: MACHINE_ONLY
+  CONSTITUTION: kernel/RESEARCH_MACHINE_ONLY_CONSTITUTION.md
+  CONTROL_CONTRACT: engines/research/RESEARCH_CONTROL_CONTRACT.md
+  ROLE_REGISTRY: engines/research/ROLES.md
+  QUESTION_TEMPLATE: engines/research/templates/research-question.yaml
+  WORK_PACKAGE_TEMPLATE: engines/research/templates/research-work-package.yaml
+  MACHINE_EXPERIMENT_TEMPLATE: engines/research/templates/machine-experiment.yaml
+  POLICY_VALIDATOR: tools/research_policy.py
+  QUESTION_SCHEMA: schemas/research-question.schema.json
+  WORK_PACKAGE_SCHEMA: schemas/research-work-package.schema.json
+  EXPERIMENT_SCHEMA: schemas/machine-experiment.schema.json
+  METHOD_FREEZE_SCHEMA: schemas/research-method-freeze.schema.json
+  SOURCE_SCHEMA: schemas/research-source.schema.json
+  HUMAN_RESEARCH_AUTHORIZATION_SCHEMA: schemas/human-research-authorization.schema.json
+  HUMAN_RESEARCH_MODE: FORBIDDEN
+  DEFAULT_NAMESPACE: research/default
+  DEFAULT_VERIFIER_ROLE: AI_R_VERIFIER

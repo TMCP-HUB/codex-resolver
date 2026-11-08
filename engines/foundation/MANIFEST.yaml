@@ -1,0 +1,108 @@
+engine_id: foundation
+status: available
+purpose: durable non-authoritative project formation between Liaison intake and Canon
+owns:
+  - project_seed_working_state
+  - project_outcome_working_state
+  - consequential_unknown_classification
+  - bounded_pre_canon_design_discovery
+  - initial_project_topology_and_navigation
+does_not_own:
+  - k0
+  - owner_authority
+  - canon_acceptance
+  - canon_mutation
+  - substantive_research
+  - evidence_collection
+  - production_planning
+  - production_implementation
+  - generic_independent_verification
+  - generic_orchestration
+  - physical_transport
+inputs:
+  - owner_material
+  - liaison_routing_frame
+  - relevant_state_slice_when_present
+  - exact_assignment
+  - destination_capability_profile
+  - assignment_admissibility
+outputs:
+  - PROJECT_SEED
+  - PROJECT_OUTCOME
+  - CONSEQUENTIAL_UNKNOWN_MAP
+  - TOPOLOGY_PLAN
+  - PROJECT_TOPOLOGY_BOOTSTRAP
+  - executor_result
+entry_conditions:
+  - task_semantically_belongs_to_foundation_engine
+  - exact_owner_material_or_provenance_is_present
+  - exact_assignment_exists
+  - selected_workflow_upstream_requirements_are_present
+  - destination_executability_preflight_passes
+exit_conditions:
+  - foundation_durable_outputs_are_materialized_and_readback_proven_or_explicit_blocker_is_emitted
+  - no_owner_or_canon_authority_is_created
+required_dependencies:
+  - contracts/CORE_CONTRACTS.md
+  - contracts/ASSIGNMENT_COMPILATION_CONTRACT.md
+  - contracts/EXECUTABILITY_CONTRACT.md
+  - protocols/artifacts.md
+  - protocols/context-assembly.md
+  - roles/executor/ROLE.md
+  - roles/control-director/ROLE.md
+  - engines/foundation/schemas/project-seed.schema.json
+  - engines/foundation/schemas/project-outcome.schema.json
+  - engines/foundation/schemas/consequential-unknown-map.schema.json
+  - engines/foundation/schemas/topology-plan.schema.json
+  - engines/foundation/schemas/topology-bootstrap.schema.json
+  - tools/project_topology.py
+roles:
+  executor: roles/executor/ROLE.md
+  consumer: roles/control-director/ROLE.md
+workflows:
+  form_project_foundation: engines/foundation/workflows/form-project-foundation.md
+workflow_contracts:
+  form_project_foundation:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/foundation/skills/develop-project-seed/SKILL.md
+      - engines/foundation/skills/define-project-outcome/SKILL.md
+      - engines/foundation/skills/classify-consequential-unknowns/SKILL.md
+      - engines/foundation/skills/plan-project-topology/SKILL.md
+    optional_skills:
+      - engines/foundation/skills/design-discovery/SKILL.md
+    required_durable_output_ids: ["foundation:project-seed","foundation:project-outcome","foundation:consequential-unknown-map","foundation:topology-plan","foundation:topology-bootstrap"]
+    upstream_requirements:
+      - {"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_owner_or_supplied_project_material"}
+skill_namespaces:
+  foundation_skills: engines/foundation/skills/
+  shared_core: kernel/skills/
+capabilities:
+  form_project_foundation: form_project_foundation
+execution_contract:
+  authority: contracts/EXECUTABILITY_CONTRACT.md
+  rule: required_capabilities_subset_of_destination_available_capabilities
+  assignment_without_proof: forbidden
+  workflow_required_skills_are_mandatory_prerequisites: true
+  global_skill_discovery: forbidden
+artifact_protocol:
+  authority: protocols/artifacts.md
+  common_envelope_required:
+    - artifact_id
+    - artifact_type
+    - produced_by_role
+    - assignment_id
+    - input_state_ref
+    - status
+    - provenance
+    - related_artifacts
+formation_boundary:
+  artifacts_are_authoritative: false
+  canon_acceptance_authority: false
+  canon_mutation_authority: false
+  automatic_research_dispatch: false
+  production_authority: false
+  topology_admission_requires_independent_cold_start_readback: true
+  persistent_project_payload_requires_canonical_address: true
+  terminal_status: FOUNDATION_READY_FOR_OWNER_GATE

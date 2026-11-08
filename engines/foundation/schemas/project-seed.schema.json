@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/foundation/project-seed.schema.json",
+  "title": "PROJECT_SEED",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "authoritative",
+    "working_summary"
+  ],
+  "properties": {
+    "artifact_type": {"const": "PROJECT_SEED"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "produced_by_role": {"type": "string", "minLength": 1},
+    "assignment_id": {"type": ["string", "null"]},
+    "input_state_ref": {"type": "string", "minLength": 1},
+    "status": {"const": "WORKING"},
+    "provenance": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "related_artifacts": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "authoritative": {"const": false},
+    "working_summary": {"type": "string", "minLength": 1},
+    "project_identity_candidate": {"type": ["string", "null"]},
+    "intended_users_or_beneficiaries": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "protected_owner_intent": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "constraints": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "non_goals": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "known_decisions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "explicit_owner_statements": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "strongly_implied_context": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "working_interpretations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "model_proposals": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "material_question_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  }
+}

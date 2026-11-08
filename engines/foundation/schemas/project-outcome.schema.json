@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/foundation/project-outcome.schema.json",
+  "title": "PROJECT_OUTCOME",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "authoritative",
+    "target_outcome",
+    "completion_condition",
+    "required_deliverables",
+    "requires_downstream_realization"
+  ],
+  "properties": {
+    "artifact_type": {"const": "PROJECT_OUTCOME"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "produced_by_role": {"type": "string", "minLength": 1},
+    "assignment_id": {"type": ["string", "null"]},
+    "input_state_ref": {"type": "string", "minLength": 1},
+    "status": {"const": "WORKING"},
+    "provenance": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "related_artifacts": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "authoritative": {"const": false},
+    "target_outcome": {"type": "string", "minLength": 1},
+    "completion_condition": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+    "required_deliverables": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "optional_deliverables": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "audience": {"type": ["string", "null"]},
+    "non_goals": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "requires_downstream_realization": {"oneOf": [{"type": "boolean"}, {"const": "UNKNOWN"}]}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://openai.github.io/codex/hooks.schema.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Review latest handoff, branch state, and chronicle before major edits.'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git reset:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Danger: review branch provenance and confirm destructive intent before reset.'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(git clean:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Danger: git clean may remove untracked work. Check task state first.'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Before ending, update handoff, evidence, and branch state if code changed.'"
+          }
+        ]
+      }
+    ]
+  }
+}

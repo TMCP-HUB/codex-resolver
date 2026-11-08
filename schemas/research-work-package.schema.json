@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver://schemas/research-work-package.schema.json",
+  "title": "Machine Research Work Package",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "WORK_PACKAGE_ID",
+    "QUESTION_ID",
+    "NAMESPACE",
+    "EXECUTOR_ROLE",
+    "VERIFIER_ROLE",
+    "MACHINE_EXECUTABLE",
+    "REQUIRES_THIRD_PARTY_HUMAN",
+    "REQUIRES_OWNER_MANUAL_RESEARCH",
+    "REQUIRES_EXTERNAL_REVIEWER",
+    "REQUIRES_EXTERNAL_HUMAN_REVIEW",
+    "REQUIRES_NEW_HUMAN_DATA",
+    "REQUIRES_HUMAN_DATA_COLLECTION",
+    "CAN_EXECUTE_WITH_AVAILABLE_MACHINE_METHODS",
+    "OWNER_AUTHORITY_ONLY_FOR_PROJECT_DECISIONS",
+    "EXECUTION_SURFACE",
+    "SOURCE_ACCESS_METHOD",
+    "COMPUTATION_METHOD",
+    "VERIFICATION_METHOD",
+    "LIMITATIONS",
+    "PROHIBITED_OVERCLAIMS",
+    "OWNER_GATE_IF_ANY"
+  ],
+  "properties": {
+    "WORK_PACKAGE_ID": {
+      "type": "string",
+      "minLength": 1
+    },
+    "QUESTION_ID": {
+      "type": "string",
+      "minLength": 1
+    },
+    "NAMESPACE": {
+      "type": "string",
+      "pattern": "^(?!human-research/).+"
+    },
+    "EXECUTOR_ROLE": {
+      "enum": [
+        "AI_R_MASTER",
+        "AI_EVIDENCE_EXTRACTOR",
+        "AI_SYNTHESIS_AGENT",
+        "AI_R_REPAIR",
+        "AI_ADVERSARIAL_VALIDATOR",
+        "AI_RESEARCH_RELEASE_CONTROLLER"
+      ]
+    },
+    "VERIFIER_ROLE": {
+      "const": "AI_R_VERIFIER"
+    },
+    "MACHINE_EXECUTABLE": {
+      "const": true
+    },
+    "REQUIRES_THIRD_PARTY_HUMAN": {
+      "const": false
+    },
+    "REQUIRES_OWNER_MANUAL_RESEARCH": {
+      "const": false
+    },
+    "REQUIRES_EXTERNAL_REVIEWER": {
+      "const": false
+    },
+    "REQUIRES_EXTERNAL_HUMAN_REVIEW": {
+      "const": false
+    },
+    "REQUIRES_NEW_HUMAN_DATA": {
+      "const": false
+    },
+    "REQUIRES_HUMAN_DATA_COLLECTION": {
+      "const": false
+    },
+    "CAN_EXECUTE_WITH_AVAILABLE_MACHINE_METHODS": {
+      "const": true
+    },
+    "OWNER_AUTHORITY_ONLY_FOR_PROJECT_DECISIONS": {
+      "const": true
+    },
+    "EXECUTION_SURFACE": {
+      "type": "string",
+      "minLength": 1
+    },
+    "SOURCE_ACCESS_METHOD": {
+      "type": "string",
+      "minLength": 1
+    },
+    "COMPUTATION_METHOD": {
+      "type": "string",
+      "minLength": 1
+    },
+    "VERIFICATION_METHOD": {
+      "type": "string",
+      "minLength": 1
+    },
+    "LIMITATIONS": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "PROHIBITED_OVERCLAIMS": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "OWNER_GATE_IF_ANY": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^OWNER_[A-Z0-9_]+$"
+    }
+  }
+}

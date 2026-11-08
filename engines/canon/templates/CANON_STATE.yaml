@@ -1,0 +1,26 @@
+artifact_type: CANON_STATE
+artifact_id: "CANON-STATE-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: PROPOSED
+provenance:
+  - "CANON-FOUNDATION-REF"
+related_artifacts:
+  - "CANON-FOUNDATION-REF"
+project_id: "PROJECT_ID"
+canon_version: "1.0.0"
+maturity: CANON_1_0
+authority:
+  holder: "OWNER_OR_AUTHORIZED_HOLDER"
+  scope: "CANON_SCOPE"
+  source_ref: "AUTHORITY_SOURCE_REF"
+foundation_ref: "CANON-FOUNDATION-REF"
+research_release_ref: null
+reconciliation_ref: null
+entries: []
+freeze:
+  state: OPEN
+  scope: "CANON_SCOPE"
+  freeze_record_ref: null
+change_history: []

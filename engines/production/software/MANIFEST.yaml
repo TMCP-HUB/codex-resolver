@@ -1,0 +1,74 @@
+engine_id: production/software
+status: available
+purpose: bounded software production and engineering
+owns:
+  - software_architecture
+  - implementation_planning
+  - coding_and_refactoring
+  - debugging_and_integration
+  - data_engineering
+  - release_and_deployment_engineering
+  - technical_qa
+  - technical_evidence
+  - software_verification_support
+does_not_own:
+  - k0
+  - owner_authority
+  - canon_truth
+  - research_truth
+  - universal_artifact_protocol
+  - universal_state_or_authority_contracts
+inputs:
+  - relevant_state_slice
+  - exact_assignment
+  - authority
+  - destination_capability_profile
+  - assignment_admissibility
+outputs:
+  - software_work_product
+  - executor_result
+  - technical_evidence_refs
+entry_conditions:
+  - capability_semantically_belongs_to_software
+  - required_authority_is_present
+  - destination_executability_preflight_passes
+exit_conditions:
+  - executor_result_emitted
+  - resulting_state_and_evidence_refs_recorded
+allowed_dependencies:
+  - kernel/
+  - contracts/
+  - protocols/
+  - roles/
+  - schemas/
+  - engines/verification/
+forbidden_dependencies:
+  - archive/legacy-codex_as_runtime_authority
+roles:
+  - roles/executor/ROLE.md
+  - roles/control-director/ROLE.md
+  - roles/control-verifier/ROLE.md
+workflows:
+  implementation: engines/production/software/workflows/implementation.md
+  diagnosis: engines/production/software/workflows/diagnosis.md
+  review_and_release: engines/production/software/workflows/review-and-release.md
+skill_namespaces:
+  shared_core: kernel/skills/
+  software_skills: engines/production/software/skills/
+  optional_solution_patterns: engines/production/software/patterns/
+persistent_payload_capabilities:
+  - implement_software_change
+  - plan_software_work
+  - software_release_support
+capabilities:
+  implement_software_change: implementation
+  diagnose_software_failure: diagnosis
+  plan_software_work: implementation
+  review_software_change: review_and_release
+  software_release_support: review_and_release
+  technical_qa: review_and_release
+execution_contract:
+  authority: contracts/EXECUTABILITY_CONTRACT.md
+  rule: required_capabilities_subset_of_destination_available_capabilities
+  assignment_without_proof: forbidden
+  modes_are_skill_or_workflow_declared: true

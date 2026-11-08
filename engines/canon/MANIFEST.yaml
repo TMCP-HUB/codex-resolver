@@ -1,0 +1,233 @@
+engine_id: canon
+status: available
+purpose: governed project Canon truth lifecycle
+owns:
+  - canon_foundation_0x
+  - canon_state_registration
+  - canon_reconciliation
+  - canon_change_classification
+  - canon_internal_validation
+  - canon_freeze
+  - canon_reopen
+does_not_own:
+  - k0
+  - owner_authority
+  - substantive_research
+  - evidence_collection
+  - research_sufficiency
+  - production_foundation
+  - software_implementation
+  - generic_independent_verification
+  - release_authority
+  - generic_orchestration
+  - universal_artifact_ontology
+  - k0_routing
+inputs:
+  - relevant_state_slice
+  - exact_assignment
+  - authority
+  - current_canon_artifacts
+  - upstream_evidence_and_findings_when_required
+  - destination_capability_profile
+  - assignment_admissibility
+outputs:
+  - CANON_FOUNDATION
+  - CANON_STATE
+  - CANON_CHANGE_PROPOSAL
+  - CANON_RECONCILIATION_RESULT
+  - CANON_FREEZE_RECORD
+  - executor_result
+entry_conditions:
+  - task_semantically_belongs_to_canon_engine
+  - required_authority_is_present
+  - relevant_state_slice_or_current_canon_state_is_identified
+  - exact_assignment_exists
+  - selected_workflow_upstream_requirements_are_present
+  - destination_executability_preflight_passes
+exit_conditions:
+  - bounded_canon_artifact_or_explicit_blocker_is_emitted
+  - result_is_returned_to_control_director
+required_dependencies:
+  - contracts/CORE_CONTRACTS.md
+  - contracts/ASSIGNMENT_COMPILATION_CONTRACT.md
+  - contracts/EXECUTABILITY_CONTRACT.md
+  - protocols/artifacts.md
+  - protocols/context-assembly.md
+  - protocols/state-mutation.md
+  - roles/executor/ROLE.md
+  - roles/control-director/ROLE.md
+  - engines/canon/docs/CANON_AUTHORITY.md
+  - engines/canon/docs/CANON_FOUNDATION_MODEL.md
+  - engines/canon/schemas/canon-foundation.schema.json
+  - engines/canon/schemas/canon-state.schema.json
+  - engines/canon/schemas/canon-change-proposal.schema.json
+  - engines/canon/schemas/canon-reconciliation-result.schema.json
+  - engines/canon/schemas/canon-freeze-record.schema.json
+  - engines/canon/tools/mutation_authority.py
+forbidden_dependencies:
+  - automatic_research_to_canon_mutation
+  - implementation_as_canon_authority
+  - verification_engine_state_mutation
+  - global_skill_discovery
+roles:
+  executor: roles/executor/ROLE.md
+  consumer: roles/control-director/ROLE.md
+workflows:
+  establish_canon_foundation: engines/canon/workflows/establish-canon-foundation.md
+  reconcile_research_into_canon: engines/canon/workflows/reconcile-research-into-canon.md
+  manage_production_canon_change: engines/canon/workflows/manage-production-canon-change.md
+  validate_canon: engines/canon/workflows/validate-canon.md
+  validate_and_freeze_canon: engines/canon/workflows/validate-and-freeze-canon.md
+  final_canon_reconciliation: engines/canon/workflows/final-canon-reconciliation.md
+  reopen_canon: engines/canon/workflows/reopen-canon.md
+workflow_contracts:
+  establish_canon_foundation:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/establish-canon-foundation/SKILL.md
+      - engines/canon/skills/validate-canon/SKILL.md
+    optional_skills:
+      - engines/canon/skills/register-canon-fact/SKILL.md
+      - engines/canon/skills/register-canon-assumption/SKILL.md
+      - engines/canon/skills/register-unknown/SKILL.md
+      - engines/canon/skills/register-ambiguity/SKILL.md
+      - engines/canon/skills/register-contradiction/SKILL.md
+      - engines/canon/skills/freeze-canon/SKILL.md
+    upstream_requirements:
+      - {"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"owner_or_authorized_foundation_input"}
+      - {"allowed_artifact_types":["STATE_OBSERVATION"],"proof_class":"ARTIFACT_REF","requirement_id":"exact_state_identity"}
+  reconcile_research_into_canon:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/reconcile-research-into-canon/SKILL.md
+      - engines/canon/skills/validate-canon/SKILL.md
+    optional_skills:
+      - engines/canon/skills/register-canon-fact/SKILL.md
+      - engines/canon/skills/register-canon-assumption/SKILL.md
+      - engines/canon/skills/register-unknown/SKILL.md
+      - engines/canon/skills/register-ambiguity/SKILL.md
+      - engines/canon/skills/register-contradiction/SKILL.md
+      - engines/canon/skills/freeze-canon/SKILL.md
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_FOUNDATION","CANON_STATE"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_current_canon_ref"}
+      - {"multiple":true,"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_research_release_or_finding_refs"}
+  manage_production_canon_change:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/classify-canon-change/SKILL.md
+      - engines/canon/skills/validate-canon/SKILL.md
+    optional_skills:
+      - engines/canon/skills/register-canon-fact/SKILL.md
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_FOUNDATION","CANON_STATE"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_current_canon_ref"}
+      - {"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_production_change_signal"}
+  validate_canon:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/validate-canon/SKILL.md
+    optional_skills: []
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_FOUNDATION","CANON_STATE","CANON_CHANGE_PROPOSAL","CANON_RECONCILIATION_RESULT"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_canon_candidate_ref"}
+  validate_and_freeze_canon:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/validate-canon/SKILL.md
+      - engines/canon/skills/freeze-canon/SKILL.md
+    optional_skills: []
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_FOUNDATION","CANON_STATE","CANON_CHANGE_PROPOSAL","CANON_RECONCILIATION_RESULT"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_canon_candidate_ref"}
+      - {"authority_contract":{"artifact_types":["FREEZE_AUTHORITY"],"authority_roles":["OWNER_K0","CONTROL_DIRECTOR"],"binding_checks":[{"artifact_field":"artifact_id","authority_field":"target_ref","requirement_id":"exact_canon_candidate_ref"},{"artifact_field":"artifact_id","authority_field":"candidate_identity","requirement_id":"exact_canon_candidate_ref"}],"constant_checks":{"authorizes_exact_candidate_freeze":true},"produced_by_roles":["owner-interface","control-director"],"require_provenance":true,"statuses":["AUTHORIZED"],"workflow_field":"workflow_id"},"proof_class":"AUTHORITY_REF","requirement_id":"explicit_freeze_authority"}
+  final_canon_reconciliation:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/validate-canon/SKILL.md
+      - engines/canon/skills/freeze-canon/SKILL.md
+    optional_skills:
+      - engines/canon/skills/classify-canon-change/SKILL.md
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_STATE"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_canon_1x_ref"}
+      - {"multiple":true,"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_production_change_records"}
+      - {"authority_contract":{"artifact_types":["OWNER_DECISION_RECORD"],"authority_roles":["OWNER_K0"],"binding_checks":[{"artifact_field":"artifact_id","authority_field":"authorized_scope","requirement_id":"exact_canon_1x_ref"}],"constant_checks":{"selected_option":"AUTHORIZE_FINAL_CANON_RECONCILIATION"},"constant_checks_alternative":{"mode_field":"canon_input_mode","mode_value":"DIRECT_INSTRUCTION","required_nonempty_fields":["canon_instruction_text"],"forbidden_fields":["question_ref","options_presented","selected_option","resource_input_mode","resource_interpretation"]},"produced_by_roles":["owner-interface"],"require_provenance":true,"statuses":["RECORDED"],"workflow_field":"decision_kind"},"proof_class":"AUTHORITY_REF","requirement_id":"explicit_final_canon_authority"}
+  reopen_canon:
+    executing_role: roles/executor/ROLE.md
+    consuming_role: roles/control-director/ROLE.md
+    required_skills:
+      - engines/canon/skills/reopen-canon/SKILL.md
+    optional_skills:
+      - engines/canon/skills/validate-canon/SKILL.md
+    upstream_requirements:
+      - {"allowed_artifact_types":["CANON_FOUNDATION","CANON_STATE"],"proof_class":"ARTIFACT_REF","require_provenance":true,"requirement_id":"exact_frozen_canon_ref"}
+      - {"authority_contract":{"artifact_types":["OWNER_DECISION_RECORD"],"authority_roles":["OWNER_K0"],"binding_checks":[{"artifact_field":"artifact_id","authority_field":"authorized_scope","requirement_id":"exact_frozen_canon_ref"}],"constant_checks":{"selected_option":"AUTHORIZE_REOPEN_CANON"},"constant_checks_alternative":{"mode_field":"canon_input_mode","mode_value":"DIRECT_INSTRUCTION","required_nonempty_fields":["canon_instruction_text"],"forbidden_fields":["question_ref","options_presented","selected_option","resource_input_mode","resource_interpretation"]},"produced_by_roles":["owner-interface"],"require_provenance":true,"statuses":["RECORDED"],"workflow_field":"decision_kind"},"proof_class":"AUTHORITY_REF","requirement_id":"explicit_reopen_authority"}
+skill_namespaces:
+  canon_skills: engines/canon/skills/
+  shared_core: kernel/skills/
+persistent_payload_capabilities:
+  - establish_canon_foundation
+  - register_canon_fact
+  - register_canon_assumption
+  - register_unknown
+  - register_ambiguity
+  - register_contradiction
+  - reconcile_research_into_canon
+  - classify_canon_change
+  - freeze_canon
+  - final_canon_reconciliation
+  - reopen_canon
+capabilities:
+  establish_canon_foundation: establish_canon_foundation
+  register_canon_fact: establish_canon_foundation
+  register_canon_assumption: establish_canon_foundation
+  register_unknown: establish_canon_foundation
+  register_ambiguity: establish_canon_foundation
+  register_contradiction: establish_canon_foundation
+  reconcile_research_into_canon: reconcile_research_into_canon
+  classify_canon_change: manage_production_canon_change
+  validate_canon: validate_canon
+  freeze_canon: validate_and_freeze_canon
+  final_canon_reconciliation: final_canon_reconciliation
+  reopen_canon: reopen_canon
+execution_contract:
+  authority: contracts/EXECUTABILITY_CONTRACT.md
+  rule: required_capabilities_subset_of_destination_available_capabilities
+  assignment_without_proof: forbidden
+  workflow_required_skills_are_mandatory_prerequisites: true
+  accepted_mutation_gate: engines/canon/tools/mutation_authority.py
+  accepted_mutation_without_proven_gate: forbidden
+  global_skill_discovery: forbidden
+artifact_protocol:
+  authority: protocols/artifacts.md
+  common_envelope_required:
+    - artifact_id
+    - produced_by_role
+    - assignment_id
+    - input_state_ref
+    - provenance
+    - related_artifacts
+research_boundary:
+  chain: RESEARCH_TO_EVIDENCE_FINDINGS_TO_CANON_RECONCILIATION_TO_ACCEPTED_CANON
+  automatic_research_mutation: forbidden
+# Ordered vocabulary of possible stages, not a mandatory route through every stage.
+# Research and its Canon reconciliation apply when required by the actual
+# outcome or when applicable Research must be reconciled. Production stages
+# apply only when realization is requested; 2.0 is the production-era path.
+maturity_lifecycle:
+  - IDEA
+  - CANON_FOUNDATION_0_X
+  - RESEARCH
+  - CANON_RECONCILIATION
+  - CANON_1_0
+  - PRODUCTION_FOUNDATION
+  - PRODUCTION
+  - FINAL_CANON_RECONCILIATION
+  - CANON_2_0
+post_2_0_modes:
+  - ADDENDUM
+  - EXPANSION
+  - NEW_EDITION
+  - REOPEN

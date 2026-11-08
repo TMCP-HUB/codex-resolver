@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver://schemas/human-research-authorization.schema.json",
+  "title": "Separate Human Research Owner Authorization Boundary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "AUTHORIZATION_ID",
+    "OWNER_DECISION_RECORD_REF",
+    "OWNER_AUTHORITY_ROLE",
+    "PROJECT_ID",
+    "QUESTION_ID",
+    "SCOPE",
+    "NAMESPACE",
+    "NON_TRANSITIVE",
+    "CREATE_SEPARATE_HUMAN_RESEARCH_WORKSTREAM",
+    "REAL_NON_OWNER_HUMANS_MAY_PARTICIPATE",
+    "DEFAULT_RESEARCH_MODE_UNCHANGED"
+  ],
+  "properties": {
+    "AUTHORIZATION_ID": {"type": "string", "minLength": 1},
+    "OWNER_DECISION_RECORD_REF": {"type": "string", "minLength": 1},
+    "OWNER_AUTHORITY_ROLE": {"const": "OWNER_K0"},
+    "PROJECT_ID": {"type": "string", "minLength": 1},
+    "QUESTION_ID": {"type": "string", "minLength": 1},
+    "SCOPE": {"type": "string", "minLength": 1},
+    "NAMESPACE": {"type": "string", "pattern": "^human-research/.+"},
+    "NON_TRANSITIVE": {"const": true},
+    "CREATE_SEPARATE_HUMAN_RESEARCH_WORKSTREAM": {"const": true},
+    "REAL_NON_OWNER_HUMANS_MAY_PARTICIPATE": {"const": true},
+    "DEFAULT_RESEARCH_MODE_UNCHANGED": {"const": true}
+  }
+}

@@ -1,0 +1,9 @@
+namespace: library
+status: available_for_maintenance
+ordinary_runtime: false
+skills:
+  skill-authoring: library/skills/skill-authoring/SKILL.md
+templates:
+  skill: library/templates/SKILL_TEMPLATE.md
+deferred:
+  - issue_24_skill_behavior_verification

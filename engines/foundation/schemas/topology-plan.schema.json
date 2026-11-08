@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/foundation/topology-plan.schema.json",
+  "title": "TOPOLOGY_PLAN",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "authoritative",
+    "project_id",
+    "storage_mode",
+    "root_index",
+    "namespaces"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "TOPOLOGY_PLAN"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_by_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assignment_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input_state_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "WORKING"
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "related_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "authoritative": {
+      "const": false
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "storage_mode": {
+      "enum": [
+        "DRIVE_ONLY",
+        "REPO_ONLY",
+        "DRIVE_THEN_REPO"
+      ]
+    },
+    "root_index": {
+      "type": "string",
+      "minLength": 1
+    },
+    "namespaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_class",
+          "prefix",
+          "index",
+          "scope_key"
+        ],
+        "properties": {
+          "artifact_class": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prefix": {
+            "type": "string",
+            "minLength": 1
+          },
+          "index": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope_key": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

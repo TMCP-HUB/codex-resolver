@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/sbc-runtime-context.schema.json",
+  "title": "SBC_RUNTIME_CONTEXT",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "present",
+    "runtime_version",
+    "pak_state",
+    "available_browser_operations"
+  ],
+  "properties": {
+    "artifact_type": {"const": "SBC_RUNTIME_CONTEXT"},
+    "present": {"const": true},
+    "runtime_version": {"type": "string", "minLength": 1},
+    "pak_state": {"enum": ["OFF", "MANUAL", "AUTO"]},
+    "available_browser_operations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

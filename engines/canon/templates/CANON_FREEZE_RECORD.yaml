@@ -1,0 +1,17 @@
+artifact_type: CANON_FREEZE_RECORD
+artifact_id: "CANON-FREEZE-RECORD-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: READY_BUT_NOT_AUTHORIZED
+provenance:
+  - "CANON-STATE-REF"
+related_artifacts:
+  - "CANON-STATE-REF"
+project_id: "PROJECT_ID"
+state_ref: "CANON-STATE-REF"
+maturity: CANON_1_0
+scope: "CANON_SCOPE"
+authority_ref: null
+unresolved_permitted_refs: []
+downstream_authorization: []

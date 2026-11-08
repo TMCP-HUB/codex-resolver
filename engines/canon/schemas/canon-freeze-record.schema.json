@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/canon-freeze-record.schema.json",
+  "title": "CANON_FREEZE_RECORD",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_type", "artifact_id", "produced_by_role", "assignment_id", "input_state_ref", "status", "provenance", "related_artifacts", "project_id", "state_ref", "maturity", "scope", "authority_ref", "unresolved_permitted_refs", "downstream_authorization"],
+  "properties": {
+    "artifact_type": {"const": "CANON_FREEZE_RECORD"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "produced_by_role": {"type": "string", "minLength": 1},
+    "assignment_id": {"type": ["string", "null"]},
+    "input_state_ref": {"type": "string", "minLength": 1},
+    "status": {"enum": ["FROZEN", "READY_BUT_NOT_AUTHORIZED", "BLOCKED"]},
+    "provenance": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "related_artifacts": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "project_id": {"type": "string", "minLength": 1},
+    "state_ref": {"type": "string", "minLength": 1},
+    "maturity": {"enum": ["CANON_FOUNDATION_0_X", "CANON_1_0", "CANON_2_0"]},
+    "scope": {"type": "string", "minLength": 1},
+    "authority_ref": {"type": ["string", "null"]},
+    "unresolved_permitted_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "downstream_authorization": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "FROZEN"}}}, "then": {"properties": {"authority_ref": {"type": "string", "minLength": 1}}, "required": ["authority_ref"]}}
+  ]
+}

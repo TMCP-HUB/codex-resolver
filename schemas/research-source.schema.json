@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver://schemas/research-source.schema.json",
+  "title": "Research Source Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "SOURCE_ID",
+    "PROVENANCE_CLASS",
+    "ORIGIN",
+    "HUMAN_ORIGIN",
+    "PROJECT_GENERATION_PROHIBITED",
+    "DESCRIPTION"
+  ],
+  "properties": {
+    "SOURCE_ID": {"type": "string", "minLength": 1},
+    "PROVENANCE_CLASS": {
+      "enum": [
+        "PRIMARY_EXTERNAL_DATA",
+        "PUBLIC_DATASET",
+        "CORPUS",
+        "SCHOLARLY_ANALYSIS",
+        "DICTIONARY_REFERENCE",
+        "OFFICIAL_REFERENCE",
+        "COMMUNITY_ARCHIVE",
+        "EXTERNAL_PREEXISTING_HUMAN_DATA",
+        "SOFTWARE_DATASET",
+        "PROXY",
+        "OTHER",
+        "LEGACY_HUMAN_TEST"
+      ]
+    },
+    "ORIGIN": {"enum": ["EXTERNAL_PREEXISTING", "PROJECT_MACHINE_GENERATED", "LEGACY_PRESERVED", "UNKNOWN"]},
+    "HUMAN_ORIGIN": {"type": "boolean"},
+    "PROJECT_GENERATION_PROHIBITED": {"type": "boolean"},
+    "DESCRIPTION": {"type": "string", "minLength": 1},
+    "SOURCE_URI": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"HUMAN_ORIGIN": {"const": true}}, "required": ["HUMAN_ORIGIN"]},
+      "then": {
+        "properties": {
+          "PROJECT_GENERATION_PROHIBITED": {"const": true},
+          "ORIGIN": {"enum": ["EXTERNAL_PREEXISTING", "LEGACY_PRESERVED"]}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"PROVENANCE_CLASS": {"const": "LEGACY_HUMAN_TEST"}}, "required": ["PROVENANCE_CLASS"]},
+      "then": {"properties": {"PROJECT_GENERATION_PROHIBITED": {"const": true}, "HUMAN_ORIGIN": {"const": true}, "ORIGIN": {"const": "LEGACY_PRESERVED"}}}
+    },
+    {
+      "if": {"properties": {"PROVENANCE_CLASS": {"const": "EXTERNAL_PREEXISTING_HUMAN_DATA"}}, "required": ["PROVENANCE_CLASS"]},
+      "then": {"properties": {"PROJECT_GENERATION_PROHIBITED": {"const": true}, "HUMAN_ORIGIN": {"const": true}, "ORIGIN": {"const": "EXTERNAL_PREEXISTING"}}}
+    },
+    {
+      "if": {"properties": {"PROVENANCE_CLASS": {"const": "OTHER"}}, "required": ["PROVENANCE_CLASS"]},
+      "then": {"properties": {"ORIGIN": {"enum": ["EXTERNAL_PREEXISTING", "PROJECT_MACHINE_GENERATED", "LEGACY_PRESERVED"]}}}
+    }
+  ]
+}

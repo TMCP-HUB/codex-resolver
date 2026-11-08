@@ -1,0 +1,42 @@
+artifact_type: RESEARCH_CHAIN_RECONCILIATION
+artifact_id: "RESEARCH-CHAIN-RECONCILIATION-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: PARTIAL
+provenance:
+  - "UPSTREAM-RESEARCH-REF"
+related_artifacts:
+  - "UPSTREAM-RESEARCH-REF"
+project_id: "PROJECT-ID"
+chain_id: "RESEARCH-CHAIN-ID"
+upstream_research_refs:
+  - "UPSTREAM-RESEARCH-REF"
+requirement_evaluations:
+  - requirement_ref: "DOWNSTREAM-REQUIREMENT-REF"
+    state: BLOCKED
+    supporting_research_refs:
+      - "UPSTREAM-RESEARCH-REF"
+    gap_refs:
+      - "GAP-ID"
+    rationale: "Bounded requirement-specific rationale."
+unresolved_gaps:
+  - gap_id: "GAP-ID"
+    requirement_ref: "DOWNSTREAM-REQUIREMENT-REF"
+    classification: CONSEQUENTIAL_BLOCKER
+    source_research_refs:
+      - "UPSTREAM-RESEARCH-REF"
+    description: "Describe the unresolved consequential dependency."
+    active: true
+    continuation: DEFER
+evidence_ceilings: []
+supersessions: []
+satisfied_requirement_refs: []
+blocked_requirement_refs:
+  - "DOWNSTREAM-REQUIREMENT-REF"
+next_research_frontier: []
+owner_input_required: false
+no_further_research_justified: false
+research_execution_authority: false
+direct_dispatch_authority: false
+canon_mutation_authority: false

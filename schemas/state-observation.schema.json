@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/state-observation.schema.json",
+  "title": "STATE_OBSERVATION",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "state_identity",
+    "authority_scope"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "STATE_OBSERVATION"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_by_role": {
+      "const": "control-director"
+    },
+    "input_state_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "const": "CURRENT"
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state_identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_topology_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "current_topology_ref",
+        "system_of_record_ref",
+        "storage_mode"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_topology_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system_of_record_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "storage_mode": {
+          "enum": [
+            "DRIVE_ONLY",
+            "REPO_ONLY",
+            "DRIVE_THEN_REPO"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

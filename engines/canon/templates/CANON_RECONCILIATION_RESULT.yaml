@@ -1,0 +1,20 @@
+artifact_type: CANON_RECONCILIATION_RESULT
+artifact_id: "CANON-RECONCILIATION-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: PROPOSED
+provenance:
+  - "SOURCE-CANON-REF"
+related_artifacts:
+  - "SOURCE-CANON-REF"
+project_id: "PROJECT_ID"
+source_canon_ref: "SOURCE-CANON-REF"
+research_release_refs: []
+# Each disposition must use exactly one of:
+# ACCEPT_ADD_PROPOSAL, REJECT_PROPOSAL, RETAIN, SUPERSEDE_PROPOSAL,
+# CLOSE_UNKNOWN_PROPOSAL, RETAIN_UNKNOWN, PRESERVE_AMBIGUITY,
+# REGISTER_CONTRADICTION, REQUIRE_OWNER_DECISION, DEFER_OUT_OF_SCOPE.
+dispositions: []
+change_proposal_refs: []
+mutation_authority_ref: null

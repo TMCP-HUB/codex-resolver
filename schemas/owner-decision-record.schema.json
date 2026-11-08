@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/owner-decision-record.schema.json",
+  "title": "OWNER_DECISION_RECORD",
+  "type": "object",
+  "$defs": {
+    "resourceClass": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "resourceDimension": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "resourceLimitMode": {
+      "enum": ["HARD_LIMIT", "RESERVABLE_LIMIT", "OBSERVATION_ONLY"]
+    },
+    "resourceQuantity": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "resourceLimit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_class",
+        "dimension",
+        "limit_mode",
+        "ordinary_limit",
+        "finalization_reserve"
+      ],
+      "properties": {
+        "resource_class": {"$ref": "#/$defs/resourceClass"},
+        "dimension": {"$ref": "#/$defs/resourceDimension"},
+        "limit_mode": {"$ref": "#/$defs/resourceLimitMode"},
+        "ordinary_limit": {"$ref": "#/$defs/resourceQuantity"},
+        "finalization_reserve": {"$ref": "#/$defs/resourceQuantity"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"limit_mode": {"const": "OBSERVATION_ONLY"}},
+            "required": ["limit_mode"]
+          },
+          "then": {
+            "properties": {
+              "ordinary_limit": {"type": "null"},
+              "finalization_reserve": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"limit_mode": {"enum": ["HARD_LIMIT", "RESERVABLE_LIMIT"]}},
+            "required": ["limit_mode"]
+          },
+          "then": {
+            "properties": {
+              "ordinary_limit": {"type": "number", "minimum": 0},
+              "finalization_reserve": {"type": "number", "minimum": 0}
+            }
+          }
+        }
+      ]
+    },
+    "resourceFinalizationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protected", "allowed_purposes"],
+      "properties": {
+        "protected": {"const": true},
+        "allowed_purposes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "RESULT_RECONCILIATION",
+              "DURABLE_PARTIAL_OUTPUT",
+              "FINAL_ACCOUNTING",
+              "CONTROL_HANDOFF"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "owner_constraints",
+    "consequences_acknowledged"
+  ],
+  "properties": {
+    "artifact_type": {"const": "OWNER_DECISION_RECORD"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "produced_by_role": {"const": "owner-interface"},
+    "assignment_id": {"type": ["string", "null"]},
+    "input_state_ref": {"type": ["string", "null"]},
+    "status": {"const": "RECORDED"},
+    "provenance": {"type": "array", "items": {"type": "string"}},
+    "related_artifacts": {"type": "array", "items": {"type": "string"}},
+    "question_ref": {"type": "string", "minLength": 1},
+    "options_presented": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "selected_option": {"type": "string", "minLength": 1},
+    "resource_input_mode": {"const": "DIRECT_INSTRUCTION"},
+    "canon_input_mode": {"const": "DIRECT_INSTRUCTION"},
+    "canon_instruction_text": {"type": "string", "minLength": 1, "pattern": "[\\s\\S]*\\S[\\s\\S]*"},
+    "resource_interpretation": {
+      "type": "object",
+      "required": ["source_text", "unresolved_constraints", "unresolved_qualifications"],
+      "properties": {
+        "source_text": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+        "unresolved_constraints": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+        "unresolved_qualifications": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+        "condition_resolutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["condition_kind", "condition_index", "evidence_refs"],
+            "properties": {
+              "condition_kind": {"enum": ["CONSTRAINT", "QUALIFICATION"]},
+              "condition_index": {"type": "integer", "minimum": 0},
+              "review_ref": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "claim_id": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"}},
+              "note": {"type": "string"}
+            },
+            "allOf": [
+              {"if": {"required": ["review_ref"]}, "then": {"required": ["claim_id"]}},
+              {"if": {"required": ["claim_id"]}, "then": {"required": ["review_ref"]}}
+            ],
+            "additionalProperties": false
+          }
+        },
+        "shared_limits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["limit_id", "dimension", "resource_classes", "total_limit"],
+            "properties": {
+              "limit_id": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+              "dimension": {"$ref": "#/$defs/resourceDimension"},
+              "resource_classes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/resourceClass"}},
+              "total_limit": {"type": "number", "minimum": 0},
+              "finalization_reserve": {"type": "number", "minimum": 0}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "owner_constraints": {"type": "array", "items": {"type": "string"}},
+    "consequences_acknowledged": {"type": "array", "items": {"type": "string"}},
+    "qualifications": {"type": "array", "items": {"type": "string"}},
+    "authority_role": {"const": "OWNER_K0"},
+    "decision_kind": {"type": "string"},
+    "project_id": {"type": "string", "minLength": 1},
+    "authorized_question_id": {"type": "string", "minLength": 1},
+    "authorized_scope": {"type": "string", "minLength": 1},
+    "authorized_namespace": {"type": "string", "pattern": "^human-research/.+"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "non_transitive": {"type": "boolean"},
+    "default_research_mode_unchanged": {"type": "boolean"},
+    "authorized_resource_grant_ref": {"type": "string", "minLength": 1},
+    "authorized_candidate_ref": {"type": ["string", "null"]},
+    "authorized_route_ref": {"type": ["string", "null"]},
+    "authorized_resource_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/resourceClass"}
+    },
+    "authorized_resource_limits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/resourceLimit"}
+    },
+    "authorized_attempt_limit": {"type": ["integer", "null"], "minimum": 1},
+    "authorized_valid_until": {"type": ["string", "null"], "format": "date-time"},
+    "authorized_finalization_policy": {"$ref": "#/$defs/resourceFinalizationPolicy"}
+  },
+  "allOf": [
+    {
+      "if": {"allOf": [
+        {"not": {"required": ["resource_input_mode"]}},
+        {"not": {"required": ["canon_input_mode"]}}
+      ]},
+      "then": {"required": ["question_ref", "options_presented", "selected_option"]}
+    },
+    {
+      "if": {"required": ["canon_input_mode"]},
+      "then": {
+        "required": ["decision_kind", "canon_instruction_text"],
+        "properties": {
+          "decision_kind": {"enum": ["manage_production_canon_change", "reconcile_research_into_canon", "final_canon_reconciliation", "reopen_canon"]},
+          "resource_input_mode": {"not": {}},
+          "resource_interpretation": {"not": {}},
+          "question_ref": {"not": {}},
+          "options_presented": {"not": {}},
+          "selected_option": {"not": {}}
+        }
+      }
+    },
+    {
+      "if": {"required": ["canon_instruction_text"]},
+      "then": {"required": ["canon_input_mode"]}
+    },
+    {
+      "if": {"required": ["resource_input_mode"]},
+      "then": {
+        "required": ["decision_kind", "resource_interpretation"],
+        "properties": {
+          "decision_kind": {"const": "OWNER_APPROVED_RESOURCE_AUTHORITY"},
+          "question_ref": {"not": {}},
+          "options_presented": {"not": {}},
+          "selected_option": {"not": {}}
+        }
+      }
+    },
+    {
+      "if": {"required": ["resource_interpretation"]},
+      "then": {
+        "required": ["decision_kind"],
+        "properties": {"decision_kind": {"const": "OWNER_APPROVED_RESOURCE_AUTHORITY"}}
+      }
+    },
+    {
+      "if": {
+        "properties": {"decision_kind": {"const": "CREATE_SEPARATE_HUMAN_RESEARCH_WORKSTREAM"}},
+        "required": ["decision_kind"]
+      },
+      "then": {
+        "required": [
+          "authority_role",
+          "project_id",
+          "authorized_question_id",
+          "authorized_scope",
+          "authorized_namespace",
+          "authorization_id",
+          "non_transitive",
+          "default_research_mode_unchanged"
+        ],
+        "properties": {
+          "authority_role": {"const": "OWNER_K0"},
+          "selected_option": {"const": "AUTHORIZE_SEPARATE_HUMAN_RESEARCH_WORKSTREAM"},
+          "assignment_id": {"type": "string", "minLength": 1},
+          "input_state_ref": {"type": "string", "minLength": 1},
+          "provenance": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "related_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "non_transitive": {"const": true},
+          "default_research_mode_unchanged": {"const": true}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"decision_kind": {"const": "OWNER_APPROVED_RESOURCE_AUTHORITY"}},
+        "required": ["decision_kind"]
+      },
+      "then": {
+        "required": [
+          "authority_role",
+          "authorized_resource_grant_ref",
+          "authorized_scope",
+          "authorized_candidate_ref",
+          "authorized_route_ref",
+          "authorized_resource_classes",
+          "authorized_resource_limits",
+          "authorized_attempt_limit",
+          "authorized_valid_until",
+          "authorized_finalization_policy",
+          "non_transitive"
+        ],
+        "properties": {
+          "authority_role": {"const": "OWNER_K0"},
+          "options_presented": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string"},
+            "contains": {"const": "AUTHORIZE_RESOURCE_AUTHORITY"},
+            "minContains": 1
+          },
+          "assignment_id": {"type": "string", "minLength": 1},
+          "input_state_ref": {"type": "string", "minLength": 1},
+          "provenance": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "related_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "non_transitive": {"const": true}
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}
+

@@ -1,0 +1,20 @@
+artifact_type: CANON_CHANGE_PROPOSAL
+artifact_id: "CANON-CHANGE-PROPOSAL-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: PROPOSED
+provenance:
+  - "SOURCE-REF"
+related_artifacts:
+  - "PRIOR-CANON-REF"
+project_id: "PROJECT_ID"
+prior_canon_ref: "PRIOR-CANON-REF"
+change_id: "CHANGE-ID"
+change_class: RESEARCH_RECONCILIATION
+statement: "PROPOSED CHANGE"
+scope: "CANON_SCOPE"
+authority_required: "CANON_MUTATION_AUTHORITY"
+authority_ref: null
+evidence_refs: []
+downstream_revalidation: []

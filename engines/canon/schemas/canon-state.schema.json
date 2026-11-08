@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/canon-state.schema.json",
+  "title": "CANON_STATE",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact_type", "artifact_id", "produced_by_role", "assignment_id", "input_state_ref", "status", "provenance", "related_artifacts", "project_id", "canon_version", "maturity", "authority", "entries", "freeze", "change_history"],
+  "properties": {
+    "artifact_type": {"const": "CANON_STATE"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "produced_by_role": {"type": "string", "minLength": 1},
+    "assignment_id": {"type": ["string", "null"]},
+    "input_state_ref": {"type": "string", "minLength": 1},
+    "status": {"enum": ["PROPOSED", "ACCEPTED", "FROZEN", "SUPERSEDED"]},
+    "provenance": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "related_artifacts": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "project_id": {"type": "string", "minLength": 1},
+    "canon_version": {"type": "string", "pattern": "^[12]\\.[0-9]+(?:\\.[0-9]+)?$"},
+    "maturity": {"enum": ["CANON_1_0", "CANON_2_0", "REOPENED"]},
+    "authority": {"$ref": "#/$defs/authority"},
+    "foundation_ref": {"type": "string", "minLength": 1},
+    "research_release_ref": {"type": ["string", "null"]},
+    "reconciliation_ref": {"type": ["string", "null"]},
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}},
+    "freeze": {"$ref": "#/$defs/freeze"},
+    "change_history": {"type": "array", "items": {"$ref": "#/$defs/change"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "FROZEN"}}},
+      "then": {"properties": {"freeze": {"type": "object", "required": ["state", "freeze_record_ref"], "properties": {"state": {"const": "FROZEN"}, "freeze_record_ref": {"type": "string", "minLength": 1}}}}}
+    },
+    {
+      "if": {"properties": {"freeze": {"type": "object", "required": ["state"], "properties": {"state": {"const": "FROZEN"}}}}},
+      "then": {"properties": {"status": {"const": "FROZEN"}, "freeze": {"type": "object", "required": ["freeze_record_ref"], "properties": {"freeze_record_ref": {"type": "string", "minLength": 1}}}}}
+    }
+  ],
+  "$defs": {
+    "authority": {"type": "object", "additionalProperties": false, "required": ["holder", "scope", "source_ref"], "properties": {"holder": {"type": "string", "minLength": 1}, "scope": {"type": "string", "minLength": 1}, "source_ref": {"type": "string", "minLength": 1}}},
+    "entry": {"type": "object", "additionalProperties": false, "required": ["id", "type", "statement", "status", "scope", "provenance", "authority_ref"], "properties": {"id": {"type": "string", "minLength": 1}, "type": {"enum": ["PROTECTED_VALUE", "FACT", "ASSUMPTION", "UNKNOWN", "AMBIGUITY", "CONTRADICTION", "DECISION"]}, "statement": {"type": "string", "minLength": 1}, "status": {"enum": ["PROPOSED", "ACCEPTED", "FROZEN", "SUPERSEDED"]}, "scope": {"type": "string", "minLength": 1}, "provenance": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "authority_ref": {"type": "string", "minLength": 1}, "dependencies": {"type": "array", "items": {"type": "string", "minLength": 1}}, "metadata": {"type": "object"}}},
+    "freeze": {"type": "object", "additionalProperties": false, "required": ["state", "scope"], "properties": {"state": {"enum": ["OPEN", "FROZEN"]}, "scope": {"type": "string", "minLength": 1}, "freeze_record_ref": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]}}},
+    "change": {"type": "object", "additionalProperties": false, "required": ["change_id", "class", "prior_state_ref", "result_state_ref", "authority_ref"], "properties": {"change_id": {"type": "string", "minLength": 1}, "class": {"enum": ["A_ENRICHMENT", "B_CLOSURE", "C_PRODUCTION_REQUIRED_CANONICAL_CHANGE", "D_CORE_CHANGE_RETCON", "RESEARCH_RECONCILIATION", "FINAL_RECONCILIATION", "REOPEN"]}, "prior_state_ref": {"type": "string", "minLength": 1}, "result_state_ref": {"type": "string", "minLength": 1}, "authority_ref": {"type": "string", "minLength": 1}, "reason_ref": {"type": "string"}}}
+  }
+}

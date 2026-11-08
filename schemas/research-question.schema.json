@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver://schemas/research-question.schema.json",
+  "title": "Research Question Admission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "QUESTION_ID",
+    "QUESTION",
+    "TARGET_CONSTRUCT",
+    "MACHINE_EXECUTABLE",
+    "AVAILABLE_MACHINE_METHODS",
+    "AVAILABLE_EXTERNAL_PREEXISTING_EVIDENCE",
+    "REQUIRES_THIRD_PARTY_HUMAN",
+    "REQUIRES_OWNER_MANUAL_RESEARCH",
+    "REQUIRES_EXTERNAL_HUMAN_REVIEW",
+    "REQUIRES_HUMAN_DATA_COLLECTION",
+    "DIRECT_MEASUREMENT_POSSIBLE",
+    "PROXY_MEASUREMENT_POSSIBLE",
+    "EXPECTED_LIMITATION",
+    "OWNER_DECISION_COMPONENT",
+    "CAN_EXECUTE_WITH_AVAILABLE_MACHINE_METHODS",
+    "OWNER_AUTHORITY_ONLY_FOR_PROJECT_DECISIONS",
+    "ADMISSION_STATUS"
+  ],
+  "properties": {
+    "QUESTION_ID": {"type": "string", "minLength": 1},
+    "QUESTION": {"type": "string", "minLength": 1},
+    "TARGET_CONSTRUCT": {"type": "string", "minLength": 1},
+    "MACHINE_EXECUTABLE": {"const": true},
+    "AVAILABLE_MACHINE_METHODS": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "AVAILABLE_EXTERNAL_PREEXISTING_EVIDENCE": {
+      "oneOf": [
+        {"type": "boolean"},
+        {"type": "string"},
+        {"type": "array", "items": {"type": "string"}}
+      ]
+    },
+    "REQUIRES_THIRD_PARTY_HUMAN": {"const": false},
+    "REQUIRES_OWNER_MANUAL_RESEARCH": {"const": false},
+    "REQUIRES_EXTERNAL_HUMAN_REVIEW": {"const": false},
+    "REQUIRES_HUMAN_DATA_COLLECTION": {"const": false},
+    "DIRECT_MEASUREMENT_POSSIBLE": {"type": "boolean"},
+    "PROXY_MEASUREMENT_POSSIBLE": {"type": "boolean"},
+    "EXPECTED_LIMITATION": {"type": "string"},
+    "OWNER_DECISION_COMPONENT": {"type": ["string", "boolean", "null"]},
+    "CAN_EXECUTE_WITH_AVAILABLE_MACHINE_METHODS": {"const": true},
+    "OWNER_AUTHORITY_ONLY_FOR_PROJECT_DECISIONS": {"const": true},
+    "ADMISSION_STATUS": {"enum": ["ADMITTED_MACHINE_RESEARCH", "REJECTED_DEFAULT_RESEARCH_ARCHITECTURE"]}
+  }
+}

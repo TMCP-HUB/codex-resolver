@@ -1,0 +1,566 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project-resolver/compiled-assignment.schema.json",
+  "title": "COMPILED_ASSIGNMENT",
+  "type": "object",
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "executionHint": {
+      "type": "object",
+      "description": "Non-authoritative executor-local guidance. An execution hint creates no authority, mandatory action, evidence requirement, required capability, acceptance requirement, invariant, or semantic stop condition.",
+      "required": [
+        "hint_id",
+        "hint_kind",
+        "description"
+      ],
+      "properties": {
+        "hint_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "hint_kind": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "additionalProperties": false
+    },
+    "obligation": {
+      "type": "object",
+      "description": "Additional fields are carried through unchanged; compilation does not interpret their meaning.",
+      "required": [
+        "action_id",
+        "responsibility",
+        "operation",
+        "obligation_class",
+        "required_capabilities",
+        "claim_ref"
+      ],
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsibility": {
+          "enum": [
+            "EXECUTOR",
+            "CONTROL",
+            "PLATFORM"
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "obligation_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "context_fact_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "required_capabilities": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "evidence_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "invariant": {
+      "type": "object",
+      "required": [
+        "invariant_id",
+        "identity_kind",
+        "classification",
+        "responsibility",
+        "value_or_ref",
+        "target_ref"
+      ],
+      "properties": {
+        "invariant_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "classification": {
+          "enum": [
+            "immutable",
+            "runtime_resolved",
+            "platform_provided",
+            "remote_live"
+          ]
+        },
+        "responsibility": {
+          "enum": [
+            "EXECUTOR",
+            "CONTROL",
+            "PLATFORM"
+          ]
+        },
+        "value_or_ref": {},
+        "independent_freeze_authority_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "claim_kind",
+        "authority_source",
+        "target_ref",
+        "responsibility",
+        "independent_verification_required",
+        "classification"
+      ],
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim_kind": {
+          "enum": [
+            "IMMUTABLE_INVARIANT",
+            "RUNTIME_FACT",
+            "CONTEXT_FACT",
+            "TASK_OUTCOME",
+            "INDEPENDENT_VERIFICATION"
+          ]
+        },
+        "authority_source": {
+          "enum": [
+            "PLATFORM_PROVIDED",
+            "RESOLVER_BOUND",
+            "EXECUTOR_RESOLVED",
+            "REMOTE_LIVE"
+          ]
+        },
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsibility": {
+          "enum": [
+            "EXECUTOR",
+            "CONTROL",
+            "PLATFORM"
+          ]
+        },
+        "independent_verification_required": {
+          "type": "boolean"
+        },
+        "classification": {
+          "enum": [
+            "immutable",
+            "runtime_resolved",
+            "platform_provided",
+            "remote_live"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "artifact_type",
+    "artifact_id",
+    "produced_by_role",
+    "assignment_id",
+    "input_state_ref",
+    "status",
+    "provenance",
+    "related_artifacts",
+    "assignment_draft_ref",
+    "authority_class",
+    "authorized_claims",
+    "immutable_invariants",
+    "runtime_resolved_invariants",
+    "context_facts",
+    "executor_responsibilities",
+    "control_responsibilities",
+    "platform_responsibilities",
+    "acceptance_requirements",
+    "evidence_requirements",
+    "stop_conditions",
+    "supported_execution_envelope_ref",
+    "supported_execution_envelope_status",
+    "authorized_mandatory_actions",
+    "authorized_evidence_requirements",
+    "authorized_required_capabilities",
+    "compilation_status",
+    "compilation_errors"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "COMPILED_ASSIGNMENT"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "produced_by_role": {
+      "const": "control-director"
+    },
+    "assignment_id": {
+      "type": "null"
+    },
+    "input_state_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "COMPILED",
+        "REJECTED"
+      ]
+    },
+    "provenance": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "related_artifacts": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "assignment_draft_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_class": {
+      "enum": [
+        "FROZEN_CANDIDATE",
+        "MOVING_PR",
+        "MOVING_BRANCH",
+        "POST_MERGE_STATE",
+        "LIVE_REMOTE_STATE"
+      ]
+    },
+    "immutable_invariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/invariant"
+      }
+    },
+    "runtime_resolved_invariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/invariant"
+      }
+    },
+    "context_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "fact_id",
+          "fact_kind",
+          "authority_source",
+          "value_or_ref",
+          "mutable",
+          "required_for"
+        ],
+        "properties": {
+          "fact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fact_kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority_source": {
+            "enum": [
+              "PLATFORM_PROVIDED",
+              "RESOLVER_BOUND",
+              "EXECUTOR_RESOLVED",
+              "REMOTE_LIVE"
+            ]
+          },
+          "value_or_ref": {},
+          "mutable": {
+            "type": "boolean"
+          },
+          "required_for": {
+            "$ref": "#/$defs/stringArray"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "executor_responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "control_responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "platform_responsibilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "acceptance_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "condition_id",
+          "classification",
+          "responsibility",
+          "context_fact_ref"
+        ],
+        "properties": {
+          "condition_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "classification": {
+            "enum": [
+              "immutable",
+              "runtime_resolved",
+              "platform_provided",
+              "remote_live"
+            ]
+          },
+          "responsibility": {
+            "enum": [
+              "EXECUTOR",
+              "CONTROL",
+              "PLATFORM"
+            ]
+          },
+          "context_fact_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "execution_hints": {
+      "type": "array",
+      "description": "Non-authoritative executor-local guidance preserved for adaptation only. This field contributes zero authority, obligations, required capabilities, acceptance requirements, invariants, or semantic stop conditions.",
+      "items": {
+        "$ref": "#/$defs/executionHint"
+      }
+    },
+    "supported_execution_envelope_status": {
+      "enum": [
+        "SUPPORTED",
+        "UNSUPPORTED"
+      ]
+    },
+    "authorized_mandatory_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "authorized_required_capabilities": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "compilation_status": {
+      "enum": [
+        "COMPILED",
+        "REJECTED"
+      ]
+    },
+    "compilation_errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "detail"
+        ],
+        "properties": {
+          "code": {
+            "enum": [
+              "INVALID_FROZEN_IDENTITY_FOR_MOVING_TARGET",
+              "OBLIGATION_NOT_AUTHORIZED",
+              "PLATFORM_FACT_REAUTHENTICATION",
+              "RESPONSIBILITY_MISMATCH",
+              "UNSUPPORTED_EXECUTION_ENVELOPE",
+              "INVALID_CONTEXT_AUTHORITY",
+              "COMPILED_CAPABILITY_MISMATCH",
+              "INVALID_EXECUTION_HINT"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "authorized_claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "authorized_evidence_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      }
+    },
+    "supported_execution_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "architecture_context": {
+      "type": "object",
+      "required": [
+        "decision_ref",
+        "boundary_ref",
+        "action_mode",
+        "state_observation_ref"
+      ],
+      "properties": {
+        "decision_ref": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": ".*\\S.*"
+        },
+        "boundary_ref": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": ".*\\S.*"
+        },
+        "action_mode": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": ".*\\S.*"
+        },
+        "state_observation_ref": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": ".*\\S.*"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "compilation_status": {
+            "const": "COMPILED"
+          }
+        },
+        "required": [
+          "compilation_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "COMPILED"
+          },
+          "supported_execution_envelope_status": {
+            "const": "SUPPORTED"
+          },
+          "compilation_errors": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "compilation_status": {
+            "const": "REJECTED"
+          }
+        },
+        "required": [
+          "compilation_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "REJECTED"
+          },
+          "authorized_required_capabilities": {
+            "maxItems": 0
+          },
+          "compilation_errors": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

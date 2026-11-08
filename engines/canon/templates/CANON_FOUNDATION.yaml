@@ -1,0 +1,27 @@
+artifact_type: CANON_FOUNDATION
+artifact_id: "CANON-FOUNDATION-ID"
+produced_by_role: "executor"
+assignment_id: "ASSIGNMENT-ID"
+input_state_ref: "INPUT-STATE-REF"
+status: PROPOSED
+provenance:
+  - "AUTHORITY-SOURCE-REF"
+related_artifacts: []
+project_id: "PROJECT_ID"
+canon_version: "0.1.0"
+authority:
+  holder: "OWNER_OR_AUTHORIZED_HOLDER"
+  scope: "FOUNDATION_SCOPE"
+  source_ref: "AUTHORITY_SOURCE_REF"
+source_refs: []
+protected_values: []
+facts: []
+assumptions: []
+unknowns: []
+ambiguities: []
+contradictions: []
+decisions: []
+freeze:
+  state: OPEN
+  scope: "FOUNDATION_SCOPE"
+  freeze_record_ref: null

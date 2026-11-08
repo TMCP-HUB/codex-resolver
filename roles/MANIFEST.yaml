@@ -1,0 +1,35 @@
+roles:
+  - role_id: control-director
+    contract_path: roles/control-director/ROLE.md
+  - role_id: control-verifier
+    contract_path: roles/control-verifier/ROLE.md
+  - role_id: executor
+    contract_path: roles/executor/ROLE.md
+  - role_id: owner-interface
+    contract_path: roles/owner-interface/ROLE.md
+
+# Role != agent instance. Liaison and Director may share sequential Chat/Work phases
+# only under their original authority and routed control contract.
+# A Software diagnostic/audit worker can implement later under a NEW Assignment.
+# Executor never merges or independently verifies its own work.
+# Director delegates mutation and alone owns authorized promotion/merge.
+# Independent Verification needs an actually distinct instance when required.
+# See current role contracts and Owner authority in #4 and #12; no additional role engine is introduced.
+
+# Documented host/instance roles, not a mechanical host attestation gate.
+# The Work Director instance never executes its own Software changes.
+# A separately launched, identified Work-native subagent may hold executor
+# or verifier on a bounded assignment; a candidate's executor and independent
+# verifier must be different instances with separate evidence.
+# Codex Cloud remains a valid executor but is not the sole Work-native route.
+stage1_documented_host_profiles:
+  codex_cloud: [executor]
+  chatgpt_work: [owner-interface, control-director, control-verifier]
+  chatgpt_work_native_subagent: [executor, control-verifier]
+  chatgpt_chat: [owner-interface, control-director, control-verifier, executor]
+stage1_host_identity_proof: required_before_role_admission
+stage1_host_self_claim_is_authority: false
+stage1_physical_host_gate_implemented: false
+
+
+agent_model: disposable_instances_of_durable_roles
