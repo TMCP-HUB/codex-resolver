@@ -111,7 +111,7 @@ The plugin is a small, portable entry point. For GitHub-backed work it reads rel
 
 ### Option B — Use any compatible AI agent directly
 
-No ChatGPT subscription or plugin is inherently required to **read and apply** Project Resolver's source-available methodology.
+No ChatGPT subscription or plugin is inherently required to **read and apply** Project Resolver's open-source methodology.
 
 1. Make [this repository](https://github.com/TMCP-HUB/codex-resolver) accessible to the agent through GitHub or a suitable file context.
 2. Start at [`AGENTS.md`](AGENTS.md) for agent entry and [`BOOTSTRAP.md`](BOOTSTRAP.md) for fresh human-facing Liaison intake.
@@ -261,15 +261,11 @@ Have a use case, found a boundary that doesn't work, or want to improve an engin
 
 ## License
 
-**Build with Resolver. Do not commercialize Resolver itself without permission.**
+Project Resolver is available under the [Apache License 2.0](LICENSE.md). You may use, modify, and distribute it, including for commercial purposes, subject to the license terms.
 
-Project Resolver is **source-available** under the [Sustainable Use License v1.0](LICENSE.md), originally published by [n8n](https://github.com/n8n-io/n8n/blob/master/LICENSE.md). It is **not an OSI-approved open-source license**.
+The license covers the repository's Project Resolver code, skills, workflows, instructions, contracts, protocols, schemas, and documentation, except materials identified as subject to other terms. Third-party materials retain their respective licenses and notices. The license does not grant general rights to Project Resolver names or logos; see [Trademark Policy](TRADEMARKS.md).
 
-- **Free use:** personal, non-commercial, and internal business work — including creating commercial products *with* Resolver as a tool.
-- **Free non-commercial sharing:** copies, including modified copies, may be distributed without charge for non-commercial purposes, subject to the license notices and modification requirements.
-- **Commercial redistribution or embedding:** the license does not grant a general right to sell Resolver, bundle its protected material into a distributed commercial product, or offer Resolver itself as a commercial service. Separate permission is required.
-
-The license applies to protected Resolver materials, not independent products created using them. Third-party content retains its own license. For separate commercial permissions, contact [TMCP Hub](https://github.com/TMCP-HUB).
+The community edition is free. Commercial implementation, integration, support, maintenance, and service agreements may be arranged separately through [TMCP Hub](https://github.com/TMCP-HUB). TMCP Hub and its services are separate products and are not licensed by this repository merely because they are mentioned here.
 
 ---
 
