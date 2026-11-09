@@ -30,7 +30,7 @@
 
 An agent can write a patch, run a command, or produce a convincing summary. That does not establish that it understood the owner's actual goal, respected earlier decisions, had permission to act, or proved the right outcome.
 
-**Project Resolver** is a open-source, agent-native framework for **AI agent orchestration, project management, GitHub-first software delivery, and independent verification**. It connects **intent, authority, execution, and evidence** through durable contracts, reusable Agent Skills, and explicit role boundaries.
+**Project Resolver** is an open-source, agent-native framework for **AI agent orchestration, project management, GitHub-first software delivery, and independent verification**. It connects **intent, authority, execution, and evidence** through durable contracts, reusable Agent Skills, and explicit role boundaries.
 
 It **augments native model reasoning**, rather than replacing it with an endless checklist. Use it for ChatGPT Work, Codex, or another compatible AI agent with appropriate tools. Simple requests stay simple; governed workflows activate only when needed.
 
