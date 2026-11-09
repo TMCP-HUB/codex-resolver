@@ -20,7 +20,7 @@
 
 <p align="center">
   <a href="#project-status"><img alt="Status: Agent-native Stage 1" src="https://img.shields.io/badge/status-agent--native%20Stage%201-3366aa?style=flat-square"></a>
-  <a href="LICENSE.md"><img alt="License: Sustainable Use 1.0" src="https://img.shields.io/badge/license-Sustainable%20Use%201.0-7043a5?style=flat-square"></a>
+  <a href="LICENSE.md"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-7043a5?style=flat-square"></a>
   <a href="https://github.com/TMCP-HUB/codex-resolver"><img alt="Source: GitHub" src="https://img.shields.io/badge/source-GitHub-24292f?style=flat-square&logo=github"></a>
 </p>
 
@@ -30,7 +30,7 @@
 
 An agent can write a patch, run a command, or produce a convincing summary. That does not establish that it understood the owner's actual goal, respected earlier decisions, had permission to act, or proved the right outcome.
 
-**Project Resolver** is a source-available, agent-native framework for **AI agent orchestration, project management, GitHub-first software delivery, and independent verification**. It connects **intent, authority, execution, and evidence** through durable contracts, reusable Agent Skills, and explicit role boundaries.
+**Project Resolver** is a open-source, agent-native framework for **AI agent orchestration, project management, GitHub-first software delivery, and independent verification**. It connects **intent, authority, execution, and evidence** through durable contracts, reusable Agent Skills, and explicit role boundaries.
 
 It **augments native model reasoning**, rather than replacing it with an endless checklist. Use it for ChatGPT Work, Codex, or another compatible AI agent with appropriate tools. Simple requests stay simple; governed workflows activate only when needed.
 
