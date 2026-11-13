@@ -100,7 +100,7 @@ No permanent daemon, hosted service, new agent framework, automatic background s
 | [Setup skill](plugins/project-resolver/skills/setup/SKILL.md) | First-time setup and local-only work |
 | [Architecture reference](docs/REFERENCE.md) | Existing engines, contracts, and deeper technical details |
 | [Agent rules](AGENTS.md) | Source-level boundaries and operating rules |
-| [Fresh project entry](BOOTSTRAP.md) | Start from an approved goal and establish the required context |
+| [Fresh project entry](BOOTSTRAP.md) | Start a fresh Liaison from the approved goal and establish the required context |
 | [Latest release](https://github.com/TMCP-HUB/project-resolver/releases) | Tagged source and downloadable private-plugin ZIP |
 | [Social preview art](assets/social-preview.png) | Share graphic (repository Settings upload needed to activate it) |
 
