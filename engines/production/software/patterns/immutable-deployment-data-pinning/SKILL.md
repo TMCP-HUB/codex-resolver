@@ -2,6 +2,8 @@
 
 > Classification: **Solution Pattern — optional**. This is one way to keep executable code, external data, and interpretation rules version-compatible. It is not required when data is intentionally mutable and backward-compatible.
 
+This pattern is **not** a blanket rule for binary or static source files. Historical import/backup checksums validate a particular archived snapshot; they must not be promoted into permanent production-build guards against normal replacements of live assets.
+
 ## Problem class
 
 A deployed executable interprets external content/config/data whose structure or meaning may evolve. If the executable follows a mutable global pointer such as `active`, `latest`, or current database state, a deployment can accidentally interpret data produced for a different code revision.
@@ -35,6 +37,7 @@ Prefer a simpler design when:
 - the application intentionally reads live mutable configuration;
 - data is embedded into the build artifact already;
 - schema negotiation handles compatibility dynamically;
+- ordinary static/binary assets are intentionally updated through the normal versioned source or object-storage path, even when their public URL must stay stable;
 - pinning would prevent an explicitly required real-time update model.
 
 ## Pattern

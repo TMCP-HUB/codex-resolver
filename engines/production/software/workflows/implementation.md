@@ -4,6 +4,8 @@
 
 **Strategy:** apply `kernel/STRATEGY_2030.md` to affected product architecture and delivery: capabilities first, interfaces secondary, MCP may lead UI, required public AI-search/HTML projections and applicable A2A implementation. Record actual rollout/evidence in the existing plan/result; a bounded repair or policy edit does not implicitly deploy adapters.
 
+**Static and binary asset changes:** Treat an in-scope replacement, recompression, resize, or optimization of a working asset as an ordinary file/content change; use the existing source/storage and publication path. A required stable served URL may map to new bytes. Do not impose historical archive hash checks, external media ZIP dependencies, immutable manifests, or extra architecture/build gates on daily asset edits merely because such checks once supported import or recovery. Use integrity verification or deployment data pinning only for the specific proven security, archival, evidence, or incompatible code/data contract. A Git commit identifies a reproducible version; it does not freeze future versions of its files.
+
 **Primary role:** `roles/executor/ROLE.md`.
 
 Load by need, not all at once:

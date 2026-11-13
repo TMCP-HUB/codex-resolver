@@ -14,7 +14,7 @@
     }
   },
   "name": "project-resolver",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "AI agent workflow orchestration for project planning, GitHub-first development, independent verification and multi-PR software delivery.",
   "author": {
     "name": "SpillikinS"
@@ -28,7 +28,7 @@
     "independent verification",
     "Agent Skills"
   ],
-  "homepage": "https://github.com/TMCP-HUB/codex-resolver",
-  "repository": "https://github.com/TMCP-HUB/codex-resolver",
+  "homepage": "https://github.com/TMCP-HUB/project-resolver",
+  "repository": "https://github.com/TMCP-HUB/project-resolver",
   "skills": "./skills"
 }

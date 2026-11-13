@@ -1,9 +1,9 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "project-resolver",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "AI agent workflow orchestration for project planning, GitHub-first development, independent verification and multi-PR software delivery.",
-  "repository": "https://github.com/TMCP-HUB/codex-resolver",
+  "repository": "https://github.com/TMCP-HUB/project-resolver",
   "extensions": {
     "com.openai": {
       "onboardingSkill": "./skills/setup/SKILL.md",
@@ -20,7 +20,7 @@
   "author": {
     "name": "SpillikinS"
   },
-  "homepage": "https://github.com/TMCP-HUB/codex-resolver",
+  "homepage": "https://github.com/TMCP-HUB/project-resolver",
   "keywords": [
     "AI agent orchestration",
     "AI project management",

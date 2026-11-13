@@ -1,0 +1,39 @@
+name: Publish Project Resolver release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.repository == 'TMCP-HUB/project-resolver'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Package portable ChatGPT plugin
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd plugins/project-resolver
+          zip -q -r "$GITHUB_WORKSPACE/project-resolver-plugin-${GITHUB_REF_NAME}.zip" plugin.json .codex-plugin skills
+          unzip -t "$GITHUB_WORKSPACE/project-resolver-plugin-${GITHUB_REF_NAME}.zip" >/dev/null
+
+      - name: Create tagged GitHub release and attach plugin archive
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" \
+            "project-resolver-plugin-${GITHUB_REF_NAME}.zip" \
+            --verify-tag \
+            --title "Project Resolver ${GITHUB_REF_NAME}" \
+            --notes-file docs/RELEASE_NOTES.md
